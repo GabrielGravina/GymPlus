@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import academiaImage from './images/academia_musculacao.webp';
 import gymManImage from './images/gym_man.jpg';
 import mapsImage from './images/maps.png';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 function App() {
   const [rating, setRating] = useState({ equipment: 0, maintenance: 0, instructors: 0, cleanliness: 0 });
@@ -108,6 +111,68 @@ function App() {
           </div>
         </section>
 
+                {/* Seção de Parcerias com Profissionais de Saúde */}
+                <section className="container mx-auto text-center mt-10">
+          <h2 className="text-4xl font-bold mb-4 text-[#00DB36]">Parcerias com Profissionais de Saúde</h2>
+          <p className="text-xl font-light mb-8 text-white">
+            O GymPlus se orgulha de oferecer parcerias com profissionais qualificados que garantem o melhor atendimento para seu bem-estar.
+            Confira os tipos de profissionais de saúde que fazem parte do nosso time:
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2">Nutricionistas</h3>
+              <p className="font-semibold text-black">
+                Profissionais especializados em dietas e planos alimentares para maximizar seus resultados nos treinos.
+              </p>
+              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
+                Conheça nossos Nutricionistas
+              </button>
+            </div>
+
+            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2">Fisioterapeutas</h3>
+              <p className="font-semibold text-black">
+                Recuperação e prevenção de lesões com fisioterapeutas especializados para garantir sua performance e bem-estar.
+              </p>
+              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
+                Conheça nossos Fisioterapeutas
+              </button>
+            </div>
+
+            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2">Psicólogos</h3>
+              <p className="font-semibold text-black">
+                Cuide da sua saúde mental com apoio psicológico especializado para otimizar sua motivação e foco nos treinos.
+              </p>
+              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
+                Conheça nossos Psicólogos
+              </button>
+            </div>
+
+            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2">Treinadores de Saúde</h3>
+              <p className="font-semibold text-black">
+                Profissionais especializados em programas de treinamento focados na saúde geral, condicionamento físico e prevenção de doenças.
+              </p>
+              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
+                Conheça nossos Treinadores
+              </button>
+            </div>
+
+            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2">Médicos Esportivos</h3>
+              <p className="font-semibold text-black">
+                Profissionais da medicina especializada para acompanhamento de sua saúde durante a prática de atividades físicas.
+              </p>
+              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
+                Conheça nossos Médicos
+              </button>
+            </div>
+          </div>
+        </section>
+
+
         {/* Nova seção: Cadastro */}
         <section className="container mx-auto text-center mt-10">
           <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Faça parte do GymPlus!</h2>
@@ -180,6 +245,33 @@ function App() {
           </div>
         </section>
       </main>
+
+      {/* Seção do Mapa Interativo */}
+      <section className="container mx-auto text-center mt-10">
+        <h2 className="text-4xl font-bold mb-4 text-[#00DB36]">Encontre Nossa Localização</h2>
+        <p className="text-xl font-light mb-8 text-white">
+          Localize academias no mapa abaixo e veja como chegar facilmente.
+        </p>
+
+        <div className="w-full h-[500px]">
+          <MapContainer center={[-21.7545, -41.3244]} zoom={13} scrollWheelZoom={false} className="w-full h-full">
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <Marker position={[-21.7545, -41.3244]} icon={new L.Icon({
+              iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Location_dot.png',
+              iconSize: [32, 32],
+              iconAnchor: [16, 32],
+              popupAnchor: [0, -32],
+            })}>
+              <Popup>
+                Nossa Localização!<br />Venha nos visitar.
+              </Popup>
+            </Marker>
+          </MapContainer>
+        </div>
+      </section>
 
       {/* Seção de contato */}
       <section className="container mx-auto text-center mt-10 mb-20">
