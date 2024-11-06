@@ -2,7 +2,7 @@ export default function BotaoPlanos({ titulo, descricao, preco }) {
     return (
         <div className="text-center m-4">
             {/* Detalhes do Plano */}
-            <div className="mt-4 p-4 bg-white opacity-90 rounded-md shadow-md border-2 border-lighter_green h-96 w-64">
+            <div className="mt-4 p-4 bg-white opacity-90 rounded-md shadow-md border-2 border-lighter_green h-96 w-64 hover:bg-gray-200 cursor-pointer transition-all ">
                 <button className="cursor-pointer border border-green-600  rounded-lg w-52 text-slate-100 text-xl font-semibold shadow-lg bg-nice_green hover:text-white transition-all px-4 py-2">
                     {titulo}
                 </button>

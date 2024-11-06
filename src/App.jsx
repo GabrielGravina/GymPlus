@@ -1,102 +1,97 @@
+// App.js
 import BotaoPlanos from './components/BotaoPlanos';
-import academiaVazia from './images/academia.jpg'
+import academiaVazia from './images/academia.jpg';
 import academiaImage from './images/academia_musculacao.webp';
 import gymManImage from './images/gym_man.jpg';
 import mapsImage from './images/maps.png';
+import ListaDePlanos from './components/ListaDePlanos';
+import L from 'leaflet';
+import React, { useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+
+import { CgGym } from "react-icons/cg";
+import { FaRegUser } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
 
 function App() {
+  const [rating, setRating] = useState({ equipment: 0, maintenance: 0, instructors: 0, cleanliness: 0 });
+
+  const handleMouseOver = (e, feature) => {
+    const stars = e.target.parentNode.children;
+    Array.from(stars).forEach((star, index) => {
+      if (index <= e.target.dataset.index) {
+        star.classList.add('text-yellow-400');
+      } else {
+        star.classList.remove('text-yellow-400');
+      }
+    });
+  };
+
+  const handleMouseOut = (feature) => {
+    // Não remover a cor amarela das estrelas clicadas
+    const stars = document.querySelectorAll(`.star-${feature}`);
+    stars.forEach((star, index) => {
+      if (rating[feature] <= index) {
+        star.classList.remove('text-yellow-400');
+        star.classList.add('text-gray-400');
+      }
+    });
+  };
+
+  const handleClick = (feature, index) => {
+    setRating({ ...rating, [feature]: index + 1 });
+  };
+
   return (
-    <div className="flex-auto w-screen h-screen">
-
+    <div className='flex-auto w-screen h-screen'>
       {/* Seção de boas-vindas */}
-      <header className="bg-[#00DB36] text-gray-900 py-4">
+      <header className="bg-[black] text-gray-900 py-4">
         <div className="container mx-auto flex items-center justify-between">
-          <h1 className="text-6xl font-extrabold text-white">GymPlus</h1>
+          <h1 className="text-7xl font-extrabold text-white mb-4">Gym<span className='text-lighter_green'>Plus</span></h1>
           <ul className="flex space-x-6 text-xl font-bold">
-            <li className="hover:bg-gray-700 cursor-pointer bg-gray-50 bg-opacity-70 p-3 text-white shadow-md rounded-md">Home</li>
-            <li className="hover:bg-gray-700 cursor-pointer bg-gray-50 bg-opacity-70 p-3 text-white shadow-md rounded-md">Entrar</li>
-            <li className="hover:bg-gray-700 cursor-pointer bg-gray-50 bg-opacity-70 p-3 text-white shadow-md rounded-md">Sobre</li>
-
+            <li className="hover:bg-gray-700 cursor-pointer bg-transparent bg-opacity-70 p-3 text-white shadow-md rounded-md border-2 border-lighter_green flex justify-center items-center">
+              <FaRegUser className="mr-2" />
+              Entrar
+            </li>
+            <li className="hover:bg-gray-700 cursor-pointer bg-transparent bg-opacity-70 p-3 text-white shadow-md rounded-md border-2 border-lighter_green flex justify-center items-center">
+              <CgGym className="mr-2" />
+              Academias
+            </li>
+            <li className="hover:bg-gray-700 cursor-pointer bg-transparent bg-opacity-70 p-3 text-white shadow-md rounded-md border-2 border-lighter_green flex justify-center items-center">
+              <FaInfoCircle className="mr-2" />
+              Sobre
+            </li>
           </ul>
         </div>
       </header>
 
-      {/* Navbar com imagem de capa */}
+      {/* Navbar com imagem de capa cobrindo toda a navbar */}
       <nav
-        className="bg-cover bg-center text-white p-4 h-1/2"
+        className="bg-cover bg-center text-white p-4"
         style={{
-          backgroundImage: `url(${academiaImage})`,
+          backgroundImage: `linear-gradient(to bottom, black, transparent), url(${academiaImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          height: '50vh'
         }}
       />
 
       {/* Conteúdo principal */}
-      <main className="py-10">
-        <section className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4 text-[#00DB36]">Nossos Serviços</h2>
-          <p className="text-xl font-light mb-8 text-white">Oferecemos treinos personalizados, localização de academias próximas, horários de funcionamento das atividades, feedbacks e muito mais.</p>
+      <main className="bg-gradient-to-b from-black via-[#452985] to-black py-10">
+        <div className="p-8">
+          <ListaDePlanos />
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
-              <h3 className="text-2xl font-semibold mb-2">Academias</h3>
-              <p className="font-semibold text-black">Veja informações sobre as academias próximas a você, buscando facilitar a sua decisão.</p>
-              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
-                Encontrar Academias
-              </button>
-            </div>
-            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
-              <h3 className="text-2xl font-semibold mb-2">Monte o seu treino</h3>
-              <p className="font-semibold text-black">Fortaleça seu corpo com os melhores equipamentos nas academias que mais façam sentido para você.</p>
-              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
-                Treino
-              </button>
-            </div>
-            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
-              <h3 className="text-2xl font-semibold mb-2">Personal Trainer</h3>
-              <p className="font-semibold text-black">Encontre um profissional com um acompanhamento individual que faça sentido para atingir seus objetivos.</p>
-              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
-                Personal Trainer
-              </button>
-            </div>
-            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
-              <h3 className="text-2xl font-semibold mb-2">Feedback</h3>
-              <p className=" font-semibold  text-black">Acompanhe feedbacks de alunos da academia que você deseja frequentar.</p>
-              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
-                Feedback
-              </button>
-            </div>
-            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
-              <h3 className="text-2xl font-semibold mb-2">Ver atividades</h3>
-              <p className=" font-semibold  text-black">Veja as atividades que a academia que você deseja entrar disponibiliza.</p>
-              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2 text-black">
-                Atividades
-              </button>
-            </div>
-            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
-              <h3 className="text-2xl font-semibold mb-2">Ver horários</h3>
-              <p className=" font-semibold  text-black">Veja o horário das atividades da academia que você deseja entrar.</p>
-              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2 text-black">
-                Horários
-              </button>
-            </div>
-          </div>
-        </section>
-
-
-        {/* Nova seção: Cadastro */}
-        {/* Nova seção: Ver Planos de Academias */}
+        {/* Seção Ver Planos de Academias */}
         <section
-          className="container mx-auto text-center mt-10 pt-6 relative bg-cover bg-center h-[500px] lg:h-[600px]"
+          className="container mx-auto text-center pt-10 relative bg-cover bg-center h-[500px] lg:h-[600px] max-w-full"
           style={{
             backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url(${academiaVazia})`
           }}
         >
-
-          <h2 className="text-5xl font-extrabold mb-4 mt-8 text-white">Ver Planos de Academias</h2>
-          <div className="flex justify-center items-center"> {/* Aumentando o espaçamento entre os botões */}
-            
-          <BotaoPlanos 
+          <h2 className="text-5xl font-extrabold mb-4 text-white">Ver Planos de Academias</h2>
+          <div className="flex justify-center items-center">
+            <BotaoPlanos 
                 titulo="Plano Básico" 
                 descricao="Acesso limitado a horários fora de pico" 
                 preco="49,90" 
@@ -108,18 +103,86 @@ function App() {
             />
             <BotaoPlanos 
                 titulo="Plano Premium" 
-                descricao="Acesso ilimitado + Integração com Smartwach" 
+                descricao="Acesso ilimitado + Aulas de grupo" 
                 preco="99,90" 
             />
           </div>
         </section>
 
+        {/* Seção de Avaliação */}
+        <section className="container mx-auto text-center mt-10">
+          <h2 className="font-bold mb-8 text-6xl text-[#00DB36]">Avalie a academia</h2>
+          <div className="p-6 bg-gradient-to-b from-[#2D8643] to-transparent text-white rounded shadow-lg">
+            <div className="mb-6">
+              <label htmlFor="academyName" className="block text-lg font-semibold mb-2">
+                Digite a academia em que você treina
+              </label>
+              <input
+                id="academyName"
+                type="text"
+                className="w-full p-4 bg-gray-200 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                placeholder="Ex: Academia XYZ"
+              />
+            </div>
+
+            {/* Avaliação de Qualidade */}
+            {['equipment', 'maintenance', 'instructors', 'cleanliness'].map((feature) => (
+              <div key={feature} className="mb-6 flex items-center justify-between">
+                <label htmlFor={feature} className="block text-lg font-semibold mb-2 capitalize w-1/2 text-left">
+                  Qualidade {feature === 'equipment' ? 'dos equipamentos: ' : feature === 'maintenance' ? 'da manutenção: ' : feature === 'instructors' ? 'dos instrutores: ' : 'da limpeza: '}
+                </label>
+                <div
+                  id={feature}
+                  className="flex items-center space-x-2 w-1/2 justify-end"
+                  onMouseOut={() => handleMouseOut(feature)}
+                >
+                  {[...Array(5)].map((_, index) => (
+                    <span
+                      key={index}
+                      className={`star-${feature} star cursor-pointer text-2xl ${rating[feature] > index ? 'text-yellow-400' : 'text-gray-400'}`}
+                      data-index={index}
+                      onMouseOver={(e) => handleMouseOver(e, feature)}
+                      onClick={() => handleClick(feature, index)}
+                    >
+                      {rating[feature] > index ? '★' : '☆'}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Seção de contato */}
+        <section className="container mx-auto text-center mt-20 mb-20 bg-gradient-to-b from-[#452985] to-transparent">
+          <h2 className="text-4xl font-bold mb-10 pt-8 text-white">Entre em contato conosco!</h2>
+          <div className="p-6 bg-white text-gray-700 rounded shadow-lg w-full max-w-4xl mx-auto">
+            <form>
+              <div className="mb-6">
+                <label htmlFor="name" className="block text-lg font-semibold mb-2">Nome</label>
+                <input id="name" type="text" className="w-full p-4 bg-gray-200 text-gray-700 rounded-md" placeholder="Seu nome" />
+              </div>
+              <div className="mb-6">
+                <label htmlFor="email" className="block text-lg font-semibold mb-2">Email</label>
+                <input id="email" type="email" className="w-full p-4 bg-gray-200 text-gray-700 rounded-md" placeholder="Seu email" />
+              </div>
+              <div className="mb-6">
+                <label htmlFor="message" className="block text-lg font-semibold mb-2">Mensagem</label>
+                <textarea id="message" rows="4" className="w-full p-4 bg-gray-200 text-gray-700 rounded-md" placeholder="Sua mensagem"></textarea>
+              </div>
+              <button type="submit" className="w-full p-4 bg-[#00DB36] text-white font-semibold rounded-md shadow-lg hover:bg-[#2D8643] transition-all">Enviar</button>
+            </form>
+          </div>
+        </section>
+
         {/* Rodapé */}
-      <footer className="bg-[#2D8643] text-white py-4 text-center">
-        <p>&copy; 2024 GymPlus. Todos os direitos reservados.</p>
+        <footer className="bg-transparent text-gray-900 py-2 text-center mt-16">
+        <p className="font-semibold text-white">© 2024 GymPlus</p>
+        <div className="mt-2">
+          <a href="#" className="text-white mx-6">Privacidade</a>
+          <a href="#" className="text-white mx-6">Termos de Uso</a>
+        </div>
       </footer>
-
-
 
       </main>
     </div>
