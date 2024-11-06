@@ -1,3 +1,5 @@
+import BotaoPlanos from './components/BotaoPlanos';
+import academiaVazia from './images/academia.jpg'
 import academiaImage from './images/academia_musculacao.webp';
 import gymManImage from './images/gym_man.jpg';
 import mapsImage from './images/maps.png';
@@ -11,9 +13,10 @@ function App() {
         <div className="container mx-auto flex items-center justify-between">
           <h1 className="text-6xl font-extrabold text-white">GymPlus</h1>
           <ul className="flex space-x-6 text-xl font-bold">
-            <li className="hover:bg-gray-700 cursor-pointer bg-gray-600 bg-opacity-70 p-3 text-white shadow-md rounded-md">Home</li>
-            <li className="hover:bg-gray-700 cursor-pointer bg-gray-600 bg-opacity-70 p-3 text-white shadow-md rounded-md">Entrar</li>
-            <li className="hover:bg-gray-700 cursor-pointer bg-gray-600 bg-opacity-70 p-3 text-white shadow-md rounded-md">Contato</li>
+            <li className="hover:bg-gray-700 cursor-pointer bg-gray-50 bg-opacity-70 p-3 text-white shadow-md rounded-md">Home</li>
+            <li className="hover:bg-gray-700 cursor-pointer bg-gray-50 bg-opacity-70 p-3 text-white shadow-md rounded-md">Entrar</li>
+            <li className="hover:bg-gray-700 cursor-pointer bg-gray-50 bg-opacity-70 p-3 text-white shadow-md rounded-md">Sobre</li>
+
           </ul>
         </div>
       </header>
@@ -80,94 +83,43 @@ function App() {
           </div>
         </section>
 
-        {/* Seção de Cadastro */}
-        <section className="container mx-auto text-center mt-10">
-          <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Faça parte do GymPlus!</h2>
-          <div className="flex justify-center space-x-6">
-            <button className="cursor-pointer border border-[#2D8643] bg-transparent h-auto w-52 p-4 text-white text-lg shadow-lg hover:bg-[#2D8643] font-semibold hover:text-white transition-all">
-              Entrar como aluno
-            </button>
-            <button className="cursor-pointer border border-[#2D8643] bg-transparent h-auto w-52 p-4 text-white text-lg shadow-lg hover:bg-[#2D8643] font-semibold hover:text-white transition-all">
-              Entrar como professor
-            </button>
-            <button className="cursor-pointer border border-[#2D8643] bg-transparent h-auto w-52 p-4 text-white text-lg shadow-lg hover:bg-[#2D8643] font-semibold hover:text-white transition-all">
-              Entrar como academia
-            </button>
+
+        {/* Nova seção: Cadastro */}
+        {/* Nova seção: Ver Planos de Academias */}
+        <section
+          className="container mx-auto text-center mt-10 pt-6 relative bg-cover bg-center h-[500px] lg:h-[600px]"
+          style={{
+            backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url(${academiaVazia})`
+          }}
+        >
+
+          <h2 className="text-5xl font-extrabold mb-4 mt-8 text-white">Ver Planos de Academias</h2>
+          <div className="flex justify-center items-center"> {/* Aumentando o espaçamento entre os botões */}
+            
+          <BotaoPlanos 
+                titulo="Plano Básico" 
+                descricao="Acesso limitado a horários fora de pico" 
+                preco="49,90" 
+            />
+            <BotaoPlanos 
+                titulo="Plano Standard" 
+                descricao="Acesso em qualquer horário" 
+                preco="79,90" 
+            />
+            <BotaoPlanos 
+                titulo="Plano Premium" 
+                descricao="Acesso ilimitado + Integração com Smartwach" 
+                preco="99,90" 
+            />
           </div>
         </section>
 
-        {/* Imagem de fundo do homem malhando */}
-        <div className="text-center mt-10">
-          <img src={gymManImage} alt="Homem Malhando" className="mx-auto h-96 object-cover" />
-        </div>
+        {/* Rodapé */}
+      <footer className="bg-[#2D8643] text-white py-4 text-center">
+        <p>&copy; 2024 GymPlus. Todos os direitos reservados.</p>
+      </footer>
 
-        {/* Seção de Planos e Assinaturas */}
-        <section className="container mx-auto text-center mt-20 mb-10">
-          <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Nossos Planos</h2>
-          <div className="flex flex-col sm:flex-row justify-center gap-10">
-            {/* Plano Básico */}
-            <div className="p-6 bg-[#2D8643] text-white rounded shadow-lg max-w-sm mx-auto">
-              <h3 className="text-3xl font-bold mb-4">Plano Básico</h3>
-              <ul className="text-lg font-semibold space-y-2 text-left">
-                <li>✔️ Acesso à localização de academias</li>
-                <li>✔️ Agendar com personal</li>
-                <li>✔️ Acesso à atividades</li>
-                <li>✔️ Acesso à horários</li>
-                <li>✔️ Montar o treino</li>
-                <li><span className="text-red-500">❌</span> Integração com smartwatches</li>
-              </ul>
-              <div className="mt-4 p-4 bg-[#70B77E] text-center text-lg font-semibold rounded">
-                Gratuito
-              </div>
-            </div>
 
-            {/* Plano Premium */}
-            <div className="p-6 bg-[#2D8643] text-white rounded shadow-lg max-w-sm mx-auto">
-              <h3 className="text-3xl font-bold mb-4">Plano Premium</h3>
-              <ul className="text-lg font-semibold space-y-2 text-left">
-                <li>✔️ Acesso à localização de academias</li>
-                <li>✔️ Agendar com personal</li>
-                <li>✔️ Acesso à atividades</li>
-                <li>✔️ Acesso à horários</li>
-                <li>✔️ Montar o treino</li>
-                <li><span className="text-green-500">✔️</span> Integração com smartwatches</li>
-              </ul>
-              <div className="mt-4 p-4 bg-[#70B77E] text-center text-lg font-semibold rounded">
-                R$ 9,99
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Mapa */}
-        <section className="container mx-auto text-center mt-20">
-          <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Encontre Academias Perto de Você</h2>
-          <div className="relative w-full h-96">
-            <img src={mapsImage} alt="Mapa" className="object-cover w-full h-full rounded-md" />
-          </div>
-        </section>
-
-        {/* Contato */}
-        <section className="container mx-auto text-center mt-20 mb-10">
-          <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Entre em Contato</h2>
-          <div className="bg-[#70B77E] p-6 rounded-lg max-w-md mx-auto text-left">
-            <form>
-              <div className="mb-4">
-                <label className="block text-lg font-semibold text-white mb-2" htmlFor="name">Nome</label>
-                <input type="text" id="name" className="w-full p-3 rounded-md bg-[#5C8B56] text-white placeholder:text-white" placeholder="Seu Nome" />
-              </div>
-              <div className="mb-4">
-                <label className="block text-lg font-semibold text-white mb-2" htmlFor="email">E-mail</label>
-                <input type="email" id="email" className="w-full p-3 rounded-md bg-[#5C8B56] text-white placeholder:text-white" placeholder="Seu E-mail" />
-              </div>
-              <div className="mb-4">
-                <label className="block text-lg font-semibold text-white mb-2" htmlFor="message">Mensagem</label>
-                <textarea id="message" className="w-full p-3 rounded-md bg-[#5C8B56] text-white placeholder:text-white" rows="4" placeholder="Sua mensagem..."></textarea>
-              </div>
-              <button type="submit" className="bg-[#2D8643] text-white py-2 px-4 rounded-md text-xl font-semibold hover:bg-[#1E6A3B] transition-all">Enviar</button>
-            </form>
-          </div>
-        </section>
 
       </main>
     </div>
