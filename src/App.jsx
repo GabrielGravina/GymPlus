@@ -6,7 +6,7 @@ import mapsImage from './images/maps.png';
 
 function App() {
   return (
-    <div className='flex-auto w-screen h-screen'>
+    <div className="flex-auto w-screen h-screen">
 
       {/* Seção de boas-vindas */}
       <header className="bg-[#00DB36] text-gray-900 py-4">
@@ -16,16 +16,17 @@ function App() {
             <li className="hover:bg-gray-700 cursor-pointer bg-gray-50 bg-opacity-70 p-3 text-white shadow-md rounded-md">Home</li>
             <li className="hover:bg-gray-700 cursor-pointer bg-gray-50 bg-opacity-70 p-3 text-white shadow-md rounded-md">Entrar</li>
             <li className="hover:bg-gray-700 cursor-pointer bg-gray-50 bg-opacity-70 p-3 text-white shadow-md rounded-md">Sobre</li>
+
           </ul>
         </div>
       </header>
 
-      {/* Navbar com imagem de capa cobrindo toda a navbar */}
+      {/* Navbar com imagem de capa */}
       <nav
         className="bg-cover bg-center text-white p-4 h-1/2"
         style={{
-          backgroundImage: `url(${academiaImage})`, // Aplica a imagem como plano de fundo
-          backgroundSize: 'cover', // Cobrir toda a navbar
+          backgroundImage: `url(${academiaImage})`,
+          backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       />
@@ -68,7 +69,7 @@ function App() {
             <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
               <h3 className="text-2xl font-semibold mb-2">Ver atividades</h3>
               <p className=" font-semibold  text-black">Veja as atividades que a academia que você deseja entrar disponibiliza.</p>
-              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
+              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2 text-black">
                 Atividades
               </button>
             </div>
@@ -81,6 +82,7 @@ function App() {
             </div>
           </div>
         </section>
+
 
         {/* Nova seção: Cadastro */}
         {/* Nova seção: Ver Planos de Academias */}
@@ -112,18 +114,14 @@ function App() {
           </div>
         </section>
 
-      </main>
-
-      {/* Nova seção: Encontre Academias */}
-      <section className="container mx-auto text-center mt-2 mb-20">
-        <h2 className="text-4xl font-bold mb-4 text-[#00DB36]">Encontre academias próximas à você!</h2>
-        <img src={mapsImage} alt="Mapa" className="mx-auto h-96 object-cover mt-10" />
-      </section>
-
-      {/* Rodapé */}
+        {/* Rodapé */}
       <footer className="bg-[#2D8643] text-white py-4 text-center">
         <p>&copy; 2024 GymPlus. Todos os direitos reservados.</p>
       </footer>
+
+
+
+      </main>
     </div>
   );
 }
