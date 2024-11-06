@@ -1,11 +1,39 @@
+import React, { useState } from 'react';
 import academiaImage from './images/academia_musculacao.webp';
 import gymManImage from './images/gym_man.jpg';
 import mapsImage from './images/maps.png';
 
 function App() {
-  return (
-    <div className="flex-auto w-screen h-screen">
+  const [rating, setRating] = useState({ equipment: 0, maintenance: 0, instructors: 0, cleanliness: 0 });
 
+  const handleMouseOver = (e, feature) => {
+    const stars = e.target.parentNode.children;
+    Array.from(stars).forEach((star, index) => {
+      if (index <= e.target.dataset.index) {
+        star.classList.add('text-yellow-400');
+      } else {
+        star.classList.remove('text-yellow-400');
+      }
+    });
+  };
+
+  const handleMouseOut = (feature) => {
+    // Não remover a cor amarela das estrelas clicadas
+    const stars = document.querySelectorAll(`.star-${feature}`);
+    stars.forEach((star, index) => {
+      if (rating[feature] <= index) {
+        star.classList.remove('text-yellow-400');
+        star.classList.add('text-gray-400');
+      }
+    });
+  };
+
+  const handleClick = (feature, index) => {
+    setRating({ ...rating, [feature]: index + 1 });
+  };
+
+  return (
+    <div className='flex-auto w-screen h-screen'>
       {/* Seção de boas-vindas */}
       <header className="bg-[#00DB36] text-gray-900 py-4">
         <div className="container mx-auto flex items-center justify-between">
@@ -18,12 +46,12 @@ function App() {
         </div>
       </header>
 
-      {/* Navbar com imagem de capa */}
+      {/* Navbar com imagem de capa cobrindo toda a navbar */}
       <nav
         className="bg-cover bg-center text-white p-4 h-1/2"
         style={{
-          backgroundImage: `url(${academiaImage})`,
-          backgroundSize: 'cover',
+          backgroundImage: `url(${academiaImage})`, // Aplica a imagem como plano de fundo
+          backgroundSize: 'cover', // Cobrir toda a navbar
           backgroundPosition: 'center',
         }}
       />
@@ -66,7 +94,7 @@ function App() {
             <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
               <h3 className="text-2xl font-semibold mb-2">Ver atividades</h3>
               <p className=" font-semibold  text-black">Veja as atividades que a academia que você deseja entrar disponibiliza.</p>
-              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2 text-black">
+              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
                 Atividades
               </button>
             </div>
@@ -80,96 +108,109 @@ function App() {
           </div>
         </section>
 
-        {/* Seção de Cadastro */}
+        {/* Nova seção: Cadastro */}
         <section className="container mx-auto text-center mt-10">
           <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Faça parte do GymPlus!</h2>
-          <div className="flex justify-center space-x-6">
-            <button className="cursor-pointer border border-[#2D8643] bg-transparent h-auto w-52 p-4 text-white text-lg shadow-lg hover:bg-[#2D8643] font-semibold hover:text-white transition-all">
-              Entrar como aluno
-            </button>
-            <button className="cursor-pointer border border-[#2D8643] bg-transparent h-auto w-52 p-4 text-white text-lg shadow-lg hover:bg-[#2D8643] font-semibold hover:text-white transition-all">
-              Entrar como professor
-            </button>
-            <button className="cursor-pointer border border-[#2D8643] bg-transparent h-auto w-52 p-4 text-white text-lg shadow-lg hover:bg-[#2D8643] font-semibold hover:text-white transition-all">
-              Entrar como academia
-            </button>
-          </div>
-        </section>
-
-        {/* Imagem de fundo do homem malhando */}
-        <div className="text-center mt-10">
-          <img src={gymManImage} alt="Homem Malhando" className="mx-auto h-96 object-cover" />
-        </div>
-
-        {/* Seção de Planos e Assinaturas */}
-        <section className="container mx-auto text-center mt-20 mb-10">
-          <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Nossos Planos</h2>
-          <div className="flex flex-col sm:flex-row justify-center gap-10">
-            {/* Plano Básico */}
-            <div className="p-6 bg-[#2D8643] text-white rounded shadow-lg max-w-sm mx-auto">
-              <h3 className="text-3xl font-bold mb-4">Plano Básico</h3>
-              <ul className="text-lg font-semibold space-y-2 text-left">
-                <li>✔️ Acesso à localização de academias</li>
-                <li>✔️ Agendar com personal</li>
-                <li>✔️ Acesso à atividades</li>
-                <li>✔️ Acesso à horários</li>
-                <li>✔️ Montar o treino</li>
-                <li><span className="text-red-500">❌</span> Integração com smartwatches</li>
-              </ul>
-              <div className="mt-4 p-4 bg-[#70B77E] text-center text-lg font-semibold rounded">
-                Gratuito
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2">Como aluno</h3>
+              <p className="font-semibold text-black">Acesse todos os serviços e acompanhe seu progresso de forma simples.</p>
+              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
+                Entrar como Aluno
+              </button>
             </div>
-
-            {/* Plano Premium */}
-            <div className="p-6 bg-[#2D8643] text-white rounded shadow-lg max-w-sm mx-auto">
-              <h3 className="text-3xl font-bold mb-4">Plano Premium</h3>
-              <ul className="text-lg font-semibold space-y-2 text-left">
-                <li>✔️ Acesso à localização de academias</li>
-                <li>✔️ Agendar com personal</li>
-                <li>✔️ Acesso à atividades</li>
-                <li>✔️ Acesso à horários</li>
-                <li>✔️ Montar o treino</li>
-                <li><span className="text-green-500">✔️</span> Integração com smartwatches</li>
-              </ul>
-              <div className="mt-4 p-4 bg-[#70B77E] text-center text-lg font-semibold rounded">
-                R$ 9,99
-              </div>
+            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2">Como professor</h3>
+              <p className="font-semibold text-black">Adicione suas aulas, agende treinos e ajude seus alunos a evoluirem!</p>
+              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
+                Entrar como Professor
+              </button>
+            </div>
+            <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2">Como academia</h3>
+              <p className="font-semibold text-black">Gerencie sua academia, receba feedbacks, crie planos e melhore seus serviços.</p>
+              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
+                Entrar como Academia
+              </button>
             </div>
           </div>
         </section>
 
-        {/* Mapa */}
-        <section className="container mx-auto text-center mt-20">
-          <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Encontre Academias Perto de Você</h2>
-          <div className="relative w-full h-96">
-            <img src={mapsImage} alt="Mapa" className="object-cover w-full h-full rounded-md" />
+        {/* Seção de Avaliação */}
+        <section className="container mx-auto text-center mt-10">
+          <h2 className="text-4xl font-bold mb-4 text-[#00DB36]">Avalie a academia</h2>
+          <div className="p-6 bg-[#00DB36] text-white rounded shadow-lg">
+            <div className="mb-6">
+              <label htmlFor="academyName" className="block text-lg font-semibold mb-2">
+                Digite a academia em que você treina
+              </label>
+              <input
+                id="academyName"
+                type="text"
+                className="w-full p-4 bg-gray-200 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                placeholder="Ex: Academia XYZ"
+              />
+            </div>
+
+            {/* Avaliação de Qualidade */}
+            {['equipment', 'maintenance', 'instructors', 'cleanliness'].map((feature) => (
+              <div key={feature} className="mb-6 flex items-center justify-between">
+                <label htmlFor={feature} className="block text-lg font-semibold mb-2 capitalize w-1/2 text-left">
+                  Qualidade {feature === 'equipment' ? 'dos equipamentos: ' : feature === 'maintenance' ? 'da manutenção: ' : feature === 'instructors' ? 'dos instrutores: ' : 'da limpeza: '}
+                </label>
+                <div
+                  id={feature}
+                  className="flex items-center space-x-2 w-1/2 justify-end"
+                  onMouseOut={() => handleMouseOut(feature)}
+                >
+                  {[...Array(5)].map((_, index) => (
+                    <span
+                      key={index}
+                      className={`star-${feature} star cursor-pointer text-2xl ${rating[feature] > index ? 'text-yellow-400' : 'text-gray-400'}`}
+                      data-index={index}
+                      onMouseOver={(e) => handleMouseOver(e, feature)}
+                      onClick={() => handleClick(feature, index)}
+                    >
+                      {rating[feature] > index ? '★' : '☆'}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
-
-        {/* Contato */}
-        <section className="container mx-auto text-center mt-20 mb-10">
-          <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Entre em Contato</h2>
-          <div className="bg-[#70B77E] p-6 rounded-lg max-w-md mx-auto text-left">
-            <form>
-              <div className="mb-4">
-                <label className="block text-lg font-semibold text-white mb-2" htmlFor="name">Nome</label>
-                <input type="text" id="name" className="w-full p-3 rounded-md bg-[#5C8B56] text-white placeholder:text-white" placeholder="Seu Nome" />
-              </div>
-              <div className="mb-4">
-                <label className="block text-lg font-semibold text-white mb-2" htmlFor="email">E-mail</label>
-                <input type="email" id="email" className="w-full p-3 rounded-md bg-[#5C8B56] text-white placeholder:text-white" placeholder="Seu E-mail" />
-              </div>
-              <div className="mb-4">
-                <label className="block text-lg font-semibold text-white mb-2" htmlFor="message">Mensagem</label>
-                <textarea id="message" className="w-full p-3 rounded-md bg-[#5C8B56] text-white placeholder:text-white" rows="4" placeholder="Sua mensagem..."></textarea>
-              </div>
-              <button type="submit" className="bg-[#2D8643] text-white py-2 px-4 rounded-md text-xl font-semibold hover:bg-[#1E6A3B] transition-all">Enviar</button>
-            </form>
-          </div>
-        </section>
-
       </main>
+
+      {/* Seção de contato */}
+      <section className="container mx-auto text-center mt-10 mb-20">
+        <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Entre em contato conosco!</h2>
+        <div className="p-6 bg-[#2D8643] text-white rounded shadow-lg w-full max-w-4xl mx-auto">
+          <form>
+            <div className="mb-6">
+              <label htmlFor="name" className="block text-lg font-semibold mb-2">Nome</label>
+              <input id="name" type="text" className="w-full p-4 bg-gray-200 text-gray-700 rounded-md" placeholder="Seu nome" />
+            </div>
+            <div className="mb-6">
+              <label htmlFor="email" className="block text-lg font-semibold mb-2">Email</label>
+              <input id="email" type="email" className="w-full p-4 bg-gray-200 text-gray-700 rounded-md" placeholder="Seu email" />
+            </div>
+            <div className="mb-6">
+              <label htmlFor="message" className="block text-lg font-semibold mb-2">Mensagem</label>
+              <textarea id="message" rows="4" className="w-full p-4 bg-gray-200 text-gray-700 rounded-md" placeholder="Sua mensagem"></textarea>
+            </div>
+            <button type="submit" className="w-full p-4 bg-[#00DB36] text-white font-semibold rounded-md shadow-lg hover:bg-[#2D8643] transition-all">Enviar</button>
+          </form>
+        </div>
+      </section>
+
+      {/* Rodapé com imagem */}
+      <footer className="bg-[#2D8643] text-gray-900 py-6 text-center mt-8">
+        <p className="font-semibold text-white">© 2024 GymPlus</p>
+        <div className="mt-2">
+          <a href="#" className="text-white mx-3">Privacidade</a>
+          <a href="#" className="text-white mx-3">Termos de Uso</a>
+        </div>
+      </footer>
     </div>
   );
 }
