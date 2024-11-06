@@ -1,3 +1,5 @@
+import BotaoPlanos from './components/BotaoPlanos';
+import academiaVazia from './images/academia.jpg'
 import academiaImage from './images/academia_musculacao.webp';
 import gymManImage from './images/gym_man.jpg';
 import mapsImage from './images/maps.png';
@@ -11,9 +13,9 @@ function App() {
         <div className="container mx-auto flex items-center justify-between">
           <h1 className="text-6xl font-extrabold text-white">GymPlus</h1>
           <ul className="flex space-x-6 text-xl font-bold">
-            <li className="hover:bg-gray-700 cursor-pointer bg-gray-600 bg-opacity-70 p-3 text-white shadow-md rounded-md">Home</li>
-            <li className="hover:bg-gray-700 cursor-pointer bg-gray-600 bg-opacity-70 p-3 text-white shadow-md rounded-md">Entrar</li>
-            <li className="hover:bg-gray-700 cursor-pointer bg-gray-600 bg-opacity-70 p-3 text-white shadow-md rounded-md">Sobre</li>
+            <li className="hover:bg-gray-700 cursor-pointer bg-gray-50 bg-opacity-70 p-3 text-white shadow-md rounded-md">Home</li>
+            <li className="hover:bg-gray-700 cursor-pointer bg-gray-50 bg-opacity-70 p-3 text-white shadow-md rounded-md">Entrar</li>
+            <li className="hover:bg-gray-700 cursor-pointer bg-gray-50 bg-opacity-70 p-3 text-white shadow-md rounded-md">Sobre</li>
           </ul>
         </div>
       </header>
@@ -81,25 +83,35 @@ function App() {
         </section>
 
         {/* Nova seção: Cadastro */}
-        <section className="container mx-auto text-center mt-10">
-          <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Faça parte do GymPlus!</h2>
-          <div className="flex justify-center space-x-6">
-            <button className="cursor-pointer border border-[#2D8643] bg-transparent h-auto w-52 p-4  text-white text-lg shadow-lg hover:bg-[#2D8643] font-semibold hover:text-white transition-all">
-              Entrar como aluno
-            </button>
-            <button className="cursor-pointer border border-[#2D8643] bg-transparent h-auto w-52 p-4 text-white text-lg shadow-lg hover:bg-[#2D8643] font-semibold hover:text-white transition-all">
-              Entrar como professor
-            </button>
-            <button className="cursor-pointer border border-[#2D8643] bg-transparent h-auto w-52 p-4 text-white text-lg shadow-lg hover:bg-[#2D8643] font-semibold hover:text-white transition-all">
-              Entrar como academia
-            </button>
+        {/* Nova seção: Ver Planos de Academias */}
+        <section
+          className="container mx-auto text-center mt-10 pt-6 relative bg-cover bg-center h-[500px] lg:h-[600px]"
+          style={{
+            backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url(${academiaVazia})`
+          }}
+        >
+
+          <h2 className="text-5xl font-extrabold mb-4 mt-8 text-white">Ver Planos de Academias</h2>
+          <div className="flex justify-center items-center"> {/* Aumentando o espaçamento entre os botões */}
+            
+          <BotaoPlanos 
+                titulo="Plano Básico" 
+                descricao="Acesso limitado a horários fora de pico" 
+                preco="49,90" 
+            />
+            <BotaoPlanos 
+                titulo="Plano Standard" 
+                descricao="Acesso em qualquer horário" 
+                preco="79,90" 
+            />
+            <BotaoPlanos 
+                titulo="Plano Premium" 
+                descricao="Acesso ilimitado + Integração com Smartwach" 
+                preco="99,90" 
+            />
           </div>
         </section>
 
-        {/* Imagem de fundo do homem malhando */}
-        <div className="text-center mt-10">
-          <img src={gymManImage} alt="Homem Malhando" className="mx-auto h-96 object-cover" />
-        </div>
       </main>
 
       {/* Nova seção: Encontre Academias */}
