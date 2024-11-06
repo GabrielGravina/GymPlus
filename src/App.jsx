@@ -4,7 +4,7 @@ import mapsImage from './images/maps.png';
 
 function App() {
   return (
-    <div className='flex-auto w-screen h-screen'>
+    <div className="flex-auto w-screen h-screen">
 
       {/* Seção de boas-vindas */}
       <header className="bg-[#00DB36] text-gray-900 py-4">
@@ -18,7 +18,7 @@ function App() {
         </div>
       </header>
 
-      {/* Navbar com imagem de capa cobrindo toda a navbar */}
+      {/* Navbar com imagem de capa */}
       <nav
         className="bg-cover bg-center text-white p-4 h-1/2"
         style={{
@@ -58,21 +58,21 @@ function App() {
             </div>
             <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
               <h3 className="text-2xl font-semibold mb-2">Feedback</h3>
-              <p className="font-semibold text-black">Acompanhe feedbacks de alunos da academia que você deseja frequentar.</p>
+              <p className=" font-semibold  text-black">Acompanhe feedbacks de alunos da academia que você deseja frequentar.</p>
               <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
                 Feedback
               </button>
             </div>
             <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
               <h3 className="text-2xl font-semibold mb-2">Ver atividades</h3>
-              <p className="font-semibold text-black">Veja as atividades que a academia que você deseja entrar disponibiliza.</p>
-              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-black text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2">
+              <p className=" font-semibold  text-black">Veja as atividades que a academia que você deseja entrar disponibiliza.</p>
+              <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2 text-black">
                 Atividades
               </button>
             </div>
             <div className="p-6 bg-[#00DB36] text-gray-900 rounded shadow-lg">
               <h3 className="text-2xl font-semibold mb-2">Ver horários</h3>
-              <p className="font-semibold text-black">Veja o horário das atividades da academia que você deseja entrar.</p>
+              <p className=" font-semibold  text-black">Veja o horário das atividades da academia que você deseja entrar.</p>
               <button className="cursor-pointer font-semibold border border-[#2D8643] bg-transparent h-12 w-full max-w-[250px] text-xl shadow-lg hover:bg-[#2D8643] hover:text-white transition-all mt-2 text-black">
                 Horários
               </button>
@@ -80,7 +80,7 @@ function App() {
           </div>
         </section>
 
-        {/* Seção: Cadastro */}
+        {/* Seção de Cadastro */}
         <section className="container mx-auto text-center mt-10">
           <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Faça parte do GymPlus!</h2>
           <div className="flex justify-center space-x-6">
@@ -100,59 +100,76 @@ function App() {
         <div className="text-center mt-10">
           <img src={gymManImage} alt="Homem Malhando" className="mx-auto h-96 object-cover" />
         </div>
-      </main>
 
-      {/* Seção: Encontre Academias */}
-      <section className="container mx-auto text-center mt-2 mb-20">
-        <h2 className="text-4xl font-bold mb-4 text-[#00DB36]">Encontre academias próximas à você!</h2>
-        <img src={mapsImage} alt="Mapa" className="mx-auto h-96 object-cover mt-10" />
-      </section>
+        {/* Seção de Planos e Assinaturas */}
+        <section className="container mx-auto text-center mt-20 mb-10">
+          <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Nossos Planos</h2>
+          <div className="flex flex-col sm:flex-row justify-center gap-10">
+            {/* Plano Básico */}
+            <div className="p-6 bg-[#2D8643] text-white rounded shadow-lg max-w-sm mx-auto">
+              <h3 className="text-3xl font-bold mb-4">Plano Básico</h3>
+              <ul className="text-lg font-semibold space-y-2 text-left">
+                <li>✔️ Acesso à localização de academias</li>
+                <li>✔️ Agendar com personal</li>
+                <li>✔️ Acesso à atividades</li>
+                <li>✔️ Acesso à horários</li>
+                <li>✔️ Montar o treino</li>
+                <li><span className="text-red-500">❌</span> Integração com smartwatches</li>
+              </ul>
+              <div className="mt-4 p-4 bg-[#70B77E] text-center text-lg font-semibold rounded">
+                Gratuito
+              </div>
+            </div>
 
+            {/* Plano Premium */}
+            <div className="p-6 bg-[#2D8643] text-white rounded shadow-lg max-w-sm mx-auto">
+              <h3 className="text-3xl font-bold mb-4">Plano Premium</h3>
+              <ul className="text-lg font-semibold space-y-2 text-left">
+                <li>✔️ Acesso à localização de academias</li>
+                <li>✔️ Agendar com personal</li>
+                <li>✔️ Acesso à atividades</li>
+                <li>✔️ Acesso à horários</li>
+                <li>✔️ Montar o treino</li>
+                <li><span className="text-green-500">✔️</span> Integração com smartwatches</li>
+              </ul>
+              <div className="mt-4 p-4 bg-[#70B77E] text-center text-lg font-semibold rounded">
+                R$ 9,99
+              </div>
+            </div>
+          </div>
+        </section>
 
-      {/* Seção de Contato */}
-      <section className="container mx-auto text-center mt-10">
-          <h2 className="text-4xl font-bold mb-4 text-[#00DB36]">Entre em Contato</h2>
-          <p className="text-lg text-white mb-8">Envie suas dúvidas ou sugestões. Nossa equipe está pronta para ajudar!</p>
-          <div className="bg-[#2D8643] p-8 rounded-lg shadow-lg max-w-lg mx-auto text-left">
-            <form className="space-y-4">
-              <div>
-                <label className="block text-white text-lg font-semibold mb-1">Nome</label>
-                <input
-                  type="text"
-                  className="w-full p-2 rounded border border-gray-300 bg-white text-black"
-                  placeholder="Seu nome"
-                />
+        {/* Mapa */}
+        <section className="container mx-auto text-center mt-20">
+          <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Encontre Academias Perto de Você</h2>
+          <div className="relative w-full h-96">
+            <img src={mapsImage} alt="Mapa" className="object-cover w-full h-full rounded-md" />
+          </div>
+        </section>
+
+        {/* Contato */}
+        <section className="container mx-auto text-center mt-20 mb-10">
+          <h2 className="text-4xl font-bold mb-10 text-[#00DB36]">Entre em Contato</h2>
+          <div className="bg-[#70B77E] p-6 rounded-lg max-w-md mx-auto text-left">
+            <form>
+              <div className="mb-4">
+                <label className="block text-lg font-semibold text-white mb-2" htmlFor="name">Nome</label>
+                <input type="text" id="name" className="w-full p-3 rounded-md bg-[#5C8B56] text-white placeholder:text-white" placeholder="Seu Nome" />
               </div>
-              <div>
-                <label className="block text-white text-lg font-semibold mb-1">Email</label>
-                <input
-                  type="email"
-                  className="w-full p-2 rounded border border-gray-300 bg-white text-black"
-                  placeholder="Seu email"
-                />
+              <div className="mb-4">
+                <label className="block text-lg font-semibold text-white mb-2" htmlFor="email">E-mail</label>
+                <input type="email" id="email" className="w-full p-3 rounded-md bg-[#5C8B56] text-white placeholder:text-white" placeholder="Seu E-mail" />
               </div>
-              <div>
-                <label className="block text-white text-lg font-semibold mb-1">Mensagem</label>
-                <textarea
-                  className="w-full p-2 rounded border border-gray-300 bg-white text-black"
-                  rows="4"
-                  placeholder="Escreva sua mensagem"
-                ></textarea>
+              <div className="mb-4">
+                <label className="block text-lg font-semibold text-white mb-2" htmlFor="message">Mensagem</label>
+                <textarea id="message" className="w-full p-3 rounded-md bg-[#5C8B56] text-white placeholder:text-white" rows="4" placeholder="Sua mensagem..."></textarea>
               </div>
-              <button
-                type="submit"
-                className="w-full bg-[#00DB36] text-white font-semibold py-2 rounded shadow-lg hover:bg-[#2D8643] transition-all"
-              >
-                Enviar
-              </button>
+              <button type="submit" className="bg-[#2D8643] text-white py-2 px-4 rounded-md text-xl font-semibold hover:bg-[#1E6A3B] transition-all">Enviar</button>
             </form>
           </div>
         </section>
 
-      {/* Rodapé */}
-      <footer className="bg-[#2D8643] text-white py-4 text-center">
-        <p>&copy; 2024 GymPlus. Todos os direitos reservados.</p>
-      </footer>
+      </main>
     </div>
   );
 }
